@@ -38,7 +38,7 @@ def get_page_content(page: int, page_size: int = 100, brand_id: int = None):
     return response.text
 
 
-def get_car_info(car_link: str):
+def get_car_details(car_link: str):
     headers = {
         'User-Agent': random.choice(user_agents)
     }
@@ -137,7 +137,7 @@ def main():
             data['car_link_to_view'] = ticket_data['data-link-to-view']
 
             car_link = ticket_data['data-link-to-view']
-            car_details = get_car_info(car_link)
+            car_details = get_car_details(car_link)
             print(f"Retrieving car details for {car_link}")
             car_details_parsed = BeautifulSoup(car_details, 'html.parser')
 
