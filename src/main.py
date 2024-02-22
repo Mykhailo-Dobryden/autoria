@@ -9,6 +9,9 @@ from bs4 import BeautifulSoup
 from fake_user_agents import user_agents
 from car_brands import brand
 
+def add(a, b):
+    return a + b
+
 
 def random_sleep():
     sleep(random.randint(2, 5))
