@@ -31,3 +31,46 @@ def cars_db(db):
         cursor.execute('DELETE FROM cars')
         cursor.close()
         return db
+
+
+@pytest.fixture(scope="session")
+def some_cars_data():
+
+    return [
+        {
+            'car_id': 1,
+            'car_mark_details': 'toyota',
+            'car_model_name': 'corolla',
+            'car_year': 2025,
+            'car_link_to_view': '/toyota-cololla-1',
+            'title': 'Toyota Corolla 2020 title',
+            'description': 'Toyota Corolla 2020 description',
+        },
+        {
+            'car_id': 2,
+            'car_mark_details': 'mazda',
+            'car_model_name': 'cx-5',
+            'car_year': 2020,
+            'car_link_to_view': '/mazda-cx-5-2',
+            'title': 'Mazda CX-5 2020 title',
+            'description': 'Mazda CX-5 2020 description',
+        },
+        {
+            'car_id': 3,
+            'car_mark_details': 'chevrolet',
+            'car_model_name': 'aveo',
+            'car_year': 2014,
+            'car_link_to_view': '/chevrolet-aveo-3',
+            'title': 'Chevrolet Aveo 2014 title',
+            'description': 'Chevrolet Aveo 2014 description',
+        },
+        {
+            'car_id': 4,
+            'car_mark_details': 'bmw',
+            'car_model_name': 'x5',
+            'car_year': 2021,
+            'car_link_to_view': '/bmw-x5-4',
+            'title': 'BMW X5 2021 title',
+            'description': 'BMW X5 2021 description',
+        }
+    ]

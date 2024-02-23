@@ -28,8 +28,8 @@ def test_sqlitewriter_write_data(cars_db):
     cursor.close()
 
 
-def test_sqlitewriter_write_data_already_exists(cars_db, capfd):
-    data_1 = {
+def test_sqlitewriter_write_data_already_exists(cars_db, capfd, some_cars_data):
+    data = {
         'car_id': 1,
         'car_mark_details': 'toyota',
         'car_model_name': 'corolla',
@@ -38,20 +38,13 @@ def test_sqlitewriter_write_data_already_exists(cars_db, capfd):
         'title': 'Toyota Corolla 2020 title',
         'description': 'Toyota Corolla 2020 description',
     }
-    data_2 = {
-        'car_id': 2,
-        'car_mark_details': 'mazda',
-        'car_model_name': 'cx-5',
-        'car_year': 2020,
-        'car_link_to_view': '/mazda-cx-5-2',
-        'title': 'Mazda CX-5 2020 title',
-        'description': 'Mazda CX-5 2020 description',
-    }
-    cars_db.write_data(data_1)
-    cars_db.write_data(data_2)
-    cars_db.write_data(data_1)
+
+    for d in some_cars_data:
+        cars_db.write_data(d)
+
+    cars_db.write_data(data)
     out, err = capfd.readouterr()
-    assert out == f"Record with id {data_1['car_id']} already exists in the database!\n"
+    assert out == f"Record with id {data['car_id']} already exists in the database!\n"
 
 
 def test_empty(cars_db):
