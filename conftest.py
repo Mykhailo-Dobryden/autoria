@@ -15,17 +15,26 @@ def csv_writer():
         del writer
 
 
+# @pytest.fixture(scope="session")
+# def db():
+#     with TemporaryDirectory() as db_dir:
+#         db_path = Path(db_dir) / 'cars.db'
+#         db_ = SQLiteWriter(db_path, 'cars')
+#         yield db_
+#         del db_
+
+
 @pytest.fixture(scope="session")
-def db():
-    with TemporaryDirectory() as db_dir:
-        db_path = Path(db_dir) / 'cars.db'
-        db_ = SQLiteWriter(db_path, 'cars')
-        yield db_
-        del db_
+def db(tmp_path_factory):
+    db_path = tmp_path_factory.mktemp("db")
+    db_ = SQLiteWriter(db_path / 'cars.db', 'cars')
+    yield db_
+    del db_
 
 
 @pytest.fixture(scope="function")
 def cars_db(db):
+
     with sqlite3.connect(db.db_name) as conn:
         cursor = conn.cursor()
         cursor.execute('DELETE FROM cars')

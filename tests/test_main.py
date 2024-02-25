@@ -28,7 +28,7 @@ def test_sqlitewriter_write_data(cars_db):
     cursor.close()
 
 
-def test_sqlitewriter_write_data_already_exists(cars_db, capfd, some_cars_data):
+def test_sqlitewriter_write_data_already_exists(cars_db, capsys, some_cars_data):
     data = {
         'car_id': 1,
         'car_mark_details': 'toyota',
@@ -43,7 +43,7 @@ def test_sqlitewriter_write_data_already_exists(cars_db, capfd, some_cars_data):
         cars_db.write_data(d)
 
     cars_db.write_data(data)
-    out, err = capfd.readouterr()
+    out = capsys.readouterr().out
     assert out == f"Record with id {data['car_id']} already exists in the database!\n"
 
 
